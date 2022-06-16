@@ -20,7 +20,7 @@ import (
 func main() {
 
 	osSignal := make(chan os.Signal, 1)
-	signal.Notify(osSignal, syscall.SIGINT, syscall.SIGTERM, syscall.SIGKILL)
+	signal.Notify(osSignal, syscall.SIGINT, syscall.SIGTERM)
 
 	yamlMgr := yamlmgr.NewYamlManager()
 

@@ -59,7 +59,7 @@ func mapCsvLineToShipmen(line string) (entity.Shipment, error) {
 	)
 	// values := strings.Split(line, ",")
 	// TODO: CSV Should not be comma separated. because address consist of commas.
-	return entity.Shipment{},nil
+	return entity.Shipment{}, nil
 }
 
 func (c *ShipmentController) InitWritingPool() {

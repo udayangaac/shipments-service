@@ -28,20 +28,20 @@ type shipmentRepo struct {
 func (s *shipmentRepo) Save(ctx context.Context, shipment entity.Shipment) (err error) {
 	return s.DB.Transaction(func(tx *gorm.DB) error {
 		if err := tx.Create(&shipment.Consignee).Error; err != nil {
-		  return err
+			return err
 		}
 		if err := tx.Create(&shipment.Shipper).Error; err != nil {
-		  return err
+			return err
 		}
 
 		if err := tx.Create(&shipment.Invoice).Error; err != nil {
-		  return err
+			return err
 		}
-		
+
 		if err := tx.Create(&shipment).Error; err != nil {
-		  return err
+			return err
 		}
 
 		return nil
-	  })
+	})
 }

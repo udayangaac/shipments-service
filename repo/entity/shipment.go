@@ -8,10 +8,10 @@ type Shipment struct {
 	NumberOfPkgs int
 	ConsigneeNum uint
 	Consignee    Consignee `gorm:"foreignKey:ConsigneeNum"`
-	ShipperNum uint
-	Shipper      Shipper   `gorm:"foreignKey:ShipperNum"`
-	InvoiceNum uint
-	Invoice      Invoice   `gorm:"foreignKey:InvoiceNum"`
+	ShipperNum   uint
+	Shipper      Shipper `gorm:"foreignKey:ShipperNum"`
+	InvoiceNum   uint
+	Invoice      Invoice `gorm:"foreignKey:InvoiceNum"`
 }
 
 // Consignee stores the details related to the consignee.
@@ -32,7 +32,7 @@ type Shipper struct {
 
 // Invoice stores the details related to the invoice.
 type Invoice struct {
-	Num      uint     `gorm:"primaryKey;column:INVOICE_NAME"`
+	Num      uint    `gorm:"primaryKey;column:INVOICE_NAME"`
 	Amount   float32 `gorm:"column:INVOICE_AMOUNT"`
 	Currency string  `gorm:"type:varchar(10);column:INVOICE_CURRENCY"`
 }

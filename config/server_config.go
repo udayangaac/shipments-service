@@ -1,8 +1,6 @@
 package config
 
 import (
-	"fmt"
-
 	log "github.com/sirupsen/logrus"
 	"github.com/udayangaac/shipments-service/yamlmgr"
 )
@@ -20,8 +18,7 @@ type JWT struct {
 }
 
 func (sc *ServerConfig) Read(m yamlmgr.Manager) {
-	path := fmt.Sprintf(`resource/config/server.yaml`)
-	err := m.Read(path, &ServerConf)
+	err := m.Read(`resource/config/server.yaml`, &ServerConf)
 	if err != nil {
 		log.Fatal("Unable to read the server.yaml file.")
 	}

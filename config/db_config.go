@@ -1,7 +1,6 @@
 package config
 
 import (
-	"fmt"
 	"time"
 
 	log "github.com/sirupsen/logrus"
@@ -22,8 +21,7 @@ type DatabaseConfig struct {
 }
 
 func (sc *DatabaseConfig) Read(m yamlmgr.Manager) {
-	path := fmt.Sprintf(`resource/config/database.yaml`)
-	err := m.Read(path, &DatabaseConf)
+	err := m.Read(`resource/config/database.yaml`, &DatabaseConf)
 	if err != nil {
 		log.Fatal("Unable to read the database,yaml file")
 	}

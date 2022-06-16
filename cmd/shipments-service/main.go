@@ -12,7 +12,9 @@ import (
 	"github.com/udayangaac/shipments-service/api/controllers"
 	"github.com/udayangaac/shipments-service/config"
 	"github.com/udayangaac/shipments-service/repo"
+	"github.com/udayangaac/shipments-service/repo/entity"
 	"github.com/udayangaac/shipments-service/yamlmgr"
+	_ "gorm.io/driver/mysql"
 )
 
 func main() {
@@ -33,15 +35,23 @@ func main() {
 		log.Fatal(err)
 	}
 
+	db.AutoMigrate(
+		&entity.Shipment{},
+		&entity.User{},
+		&entity.Consignee{},
+		&entity.Shipper{},
+		&entity.Invoice{},
+	)
+
 	userCtrl := controllers.UserController{
 		UserRepo: repo.NewUserRepo(db),
 	}
 
-	shipementCtrl := controllers.ShipmentController{
+	shipmentCtrl := controllers.ShipmentController{
 		ShipmentRepo: repo.NewShipmentRepo(db),
 	}
-
-	go api.GetEngine(userCtrl, shipementCtrl).Run(fmt.Sprintf(":%v", config.ServerConf.Port))
+	shipmentCtrl.InitWritingPool()
+	go api.GetEngine(userCtrl, shipmentCtrl).Run(fmt.Sprintf(":%v", config.ServerConf.Port))
 	<-osSignal
 }
 

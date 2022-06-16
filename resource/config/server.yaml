@@ -1,0 +1,4 @@
+jwt:
+  key: "1qaz2ws"
+  duration: 14400
+metrics_port: 8002

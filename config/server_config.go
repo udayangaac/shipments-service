@@ -11,7 +11,7 @@ var ServerConf ServerConfig
 
 type ServerConfig struct {
 	Jwt  JWT `yaml:"jwt"`
-	Port int `yaml:"metrics_port"`
+	Port int `yaml:"port"`
 }
 
 type JWT struct {

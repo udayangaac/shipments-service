@@ -11,7 +11,8 @@ func GetEngine(userCtrl controllers.UserController, shipementCtrl controllers.Sh
 	{
 		v1.POST("/user", userCtrl.CreateUser)
 		v1.GET("/user", userCtrl.LoginUser)
-		v1.GET("/shipments", shipementCtrl.Upload)
+
+		v1.GET("/shipments", JwtMiddleware(), shipementCtrl.Upload)
 	}
 	return r
 }

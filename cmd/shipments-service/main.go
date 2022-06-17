@@ -50,8 +50,10 @@ func main() {
 	shipmentCtrl := controllers.ShipmentController{
 		ShipmentRepo: repo.NewShipmentRepo(db),
 	}
+
 	shipmentCtrl.InitWritingPool()
 	go api.GetEngine(userCtrl, shipmentCtrl).Run(fmt.Sprintf(":%v", config.ServerConf.Port))
+
 	<-osSignal
 }
 

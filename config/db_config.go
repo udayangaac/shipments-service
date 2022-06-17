@@ -8,11 +8,11 @@ import (
 var DatabaseConf DatabaseConfig
 
 type DatabaseConfig struct {
-	Host            string        `yaml:"host"`
-	Port            int           `yaml:"port"`
-	Database        string        `yaml:"database"`
-	UserName        string        `yaml:"user_name"`
-	Password        string        `yaml:"password"`
+	Host     string `yaml:"host"`
+	Port     int    `yaml:"port"`
+	Database string `yaml:"database"`
+	UserName string `yaml:"user_name"`
+	Password string `yaml:"password"`
 }
 
 func (sc *DatabaseConfig) Read(m yamlmgr.Manager) {

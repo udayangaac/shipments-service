@@ -48,6 +48,7 @@ func main() {
 	}
 
 	shipmentCtrl := controllers.ShipmentController{
+		LineChan: make(chan []string),
 		ShipmentRepo: repo.NewShipmentRepo(db),
 	}
 

@@ -3,7 +3,6 @@ package controllers
 import (
 	"context"
 	"encoding/csv"
-	"fmt"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,7 +15,7 @@ const numOfRoutine = 100
 
 type ShipmentController struct {
 	ShipmentRepo repo.ShipmentRepo
-	LineChan     chan string
+	LineChan     chan []string
 }
 
 func (c *ShipmentController) Upload(ctx *gin.Context) {
@@ -35,11 +34,11 @@ func (c *ShipmentController) Upload(ctx *gin.Context) {
 		})
 	}
 	for _, line := range csvLines {
-		fmt.Println(line)
+		c.LineChan <- line
 	}
 }
 
-func mapCsvLineToShipmen(line string) (entity.Shipment, error) {
+func mapCsvLineToShipmen(line []string) (entity.Shipment, error) {
 	const (
 		TRACKING_ID int = 0
 		ORIGIN_PORT
@@ -64,7 +63,7 @@ func mapCsvLineToShipmen(line string) (entity.Shipment, error) {
 
 func (c *ShipmentController) InitWritingPool() {
 	for i := 0; i < numOfRoutine; i++ {
-		go func(lc chan string, sr repo.ShipmentRepo) {
+		go func(lc chan []string, sr repo.ShipmentRepo) {
 			for {
 				line := <-lc
 				shipment, err := mapCsvLineToShipmen(line)
